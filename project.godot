@@ -50,3 +50,8 @@ attack={
 [physics]
 
 2d/per_pixel_transparency/allowed=true
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=3
+2d/snap/snap_2d_transforms_to_pixel=true

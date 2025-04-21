@@ -1,13 +1,23 @@
 extends CharacterBody2D
 
-@export var ACCELERATION: float = 1750.0
-@export var DECELERATION: float = 2000.0
-@export var MAX_SPEED: float = 15_000.0
+@onready var ANIMATOR = $Animator
 
-var input_direction: Vector2
+@export var ACCELERATION: float = 1250.0
+@export var DECELERATION: float = 1500.0
+@export var MAX_SPEED: float = 20_00.0
 
-func get_input_direction() -> Vector2:
-	return Input.get_vector("left", "right", "up", "down").normalized()
+var input_direction: Vector2 = Vector2.ZERO
+var last_direction: Vector2 = Vector2.DOWN
+
+func _physics_process(delta: float) -> void:
+	# Direction
+	input_direction = Input.get_vector("left", "right", "up", "down").normalized()
+	last_direction = input_direction if input_direction != Vector2.ZERO else last_direction
+	
+	animate()
+	
+	update_velocity(delta)
+	move_and_slide()
 
 func update_velocity(delta: float) -> void:
 	var accDelta = ACCELERATION * delta
@@ -15,22 +25,48 @@ func update_velocity(delta: float) -> void:
 	var maxDelta = MAX_SPEED * delta
 	
 	# X movement
+	if abs(velocity.x) + accDelta > maxDelta:
+		velocity.x = maxDelta * input_direction.x
 	if input_direction.x != 0:
 		velocity.x += input_direction.x * accDelta
 	else: 
 		velocity.x = move_toward(velocity.x, 0, decDelta)
 	
 	# Y movement
+	if abs(velocity.y) + accDelta > maxDelta:
+		velocity.y = maxDelta * input_direction.y
 	if input_direction.y != 0:
 		velocity.y += input_direction.y * accDelta	
 	else:
 		velocity.y = move_toward(velocity.y, 0, decDelta)
-	
-	# Max speed
-	velocity.x = maxDelta * input_direction.x if abs(velocity.x) > maxDelta else velocity.x
-	velocity.y = maxDelta * input_direction.y if abs(velocity.y) > maxDelta else velocity.y  
 
-func _physics_process(delta: float) -> void:
-	input_direction = get_input_direction()
-	update_velocity(delta)
-	move_and_slide()
+# DANGER: Animations sector 
+func animate() -> void:
+	flip_logic()
+	
+	# Idle animation
+	if not input_direction:
+		idle_animations()
+	else:
+		walk_animations()
+
+func flip_logic() -> void:
+	if last_direction.x < 0 and not last_direction.y:
+		ANIMATOR.set_flip_h(true) 
+	else: ANIMATOR.set_flip_h(false)
+
+func idle_animations() -> void:
+	if last_direction.y > 0:
+		ANIMATOR.play("idle_down")
+	elif last_direction.y < 0:
+		ANIMATOR.play("idle_up")
+	else:
+		ANIMATOR.play("idle_side")
+
+func walk_animations() -> void:
+	if input_direction.y > 0:
+		ANIMATOR.play("walk_down")
+	elif input_direction.y < 0:
+		ANIMATOR.play("walk_up")
+	else:
+		ANIMATOR.play("walk_side")

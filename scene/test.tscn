@@ -7,7 +7,7 @@
 [node name="CharacterBody2D" parent="." instance=ExtResource("1_jojqj")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = 349.0
-offset_top = 245.0
-offset_right = 389.0
-offset_bottom = 285.0
+offset_left = 72.0
+offset_top = 42.0
+offset_right = 112.0
+offset_bottom = 82.0
