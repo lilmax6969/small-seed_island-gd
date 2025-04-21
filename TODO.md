@@ -1,5 +1,5 @@
 ## Étienne
- - [ ] Animations de bases (idle, walk, etc)
+ - [x] Animations de bases (idle, walk, etc)
 
 ## Maxime
  - [ ] Système de combat
