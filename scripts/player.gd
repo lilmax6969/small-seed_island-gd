@@ -36,7 +36,7 @@ func update_velocity(delta: float) -> void:
 	if abs(velocity.y) + accDelta > maxDelta:
 		velocity.y = maxDelta * input_direction.y
 	if input_direction.y != 0:
-		velocity.y += input_direction.y * accDelta	
+		velocity.y += input_direction.y * accDelta
 	else:
 		velocity.y = move_toward(velocity.y, 0, decDelta)
 
