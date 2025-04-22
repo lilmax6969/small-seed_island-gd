@@ -1,15 +1,15 @@
 ## Tâches non attribué
-1. Test map (pour tester les fonctionalitées)
-2. Enemies
-3. Shaders
-4. Particles
-5. Sound design
-7. Map (Game design)
-8. PNJ (avec un text engine)
-9. Bosses (si possible)
+1. Enemies
+2. Shaders
+3. Particles
+4. Sound design
+5. Map (Game design)
+6. PNJ (avec un text engine)
+7. Bosses (si possible)
 
 ## Étienne
  - [x] Animations de bases (idle, walk, etc)
+ - [ ] Test map (pour tester les fonctionalitées)
 
 ## Maxime
  - [ ] Système de combat
