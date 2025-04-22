@@ -76,20 +76,13 @@ func walk_animations() -> void:
 	else:
 		ANIMATOR.play("walk_side")
 
-func offset_logic() -> void:
-	if not attack: 
-		ANIMATOR.offset = Vector2.ZERO
-	
-	else:
-		if anim_direction.y > 0:
-			ANIMATOR.offset.y = 7
-		elif anim_direction.y < 0:
-			ANIMATOR.offset.y = -9.5
-		else:
-			ANIMATOR.offset.x = 8 * flipped
-
 func attack_animations() -> void:
-	offset_logic()
+	if anim_direction.y > 0:
+		ANIMATOR.offset.y = 7
+	elif anim_direction.y < 0:
+		ANIMATOR.offset.y = -9.5
+	else:
+		ANIMATOR.offset.x = 8 * flipped
 	
 	ANIMATOR.speed_scale = attack_speed_multiplier
 	
@@ -107,7 +100,7 @@ func attack_animations() -> void:
 	
 	# Reset the offset and speed
 	ANIMATOR.speed_scale = 1
-	offset_logic()
+	ANIMATOR.offset = Vector2.ZERO
 	
 	# Force a visual update
 	animate()
