@@ -2,9 +2,9 @@ extends CharacterBody2D
 
 @onready var ANIMATOR = $Animator
 
-@export var ACCELERATION: float = 1250.0
-@export var DECELERATION: float = 1500.0
-@export var MAX_SPEED: float = 20_00.0
+@export var ACCELERATION: float = 750.0
+@export var DECELERATION: float = 1000.0
+@export var MAX_SPEED: float = 75.0
 
 var input_direction: Vector2 = Vector2.ZERO
 var last_direction: Vector2 = Vector2.DOWN
@@ -22,23 +22,13 @@ func _physics_process(delta: float) -> void:
 func update_velocity(delta: float) -> void:
 	var accDelta = ACCELERATION * delta
 	var decDelta = DECELERATION * delta
-	var maxDelta = MAX_SPEED * delta
 	
-	# X movement
-	if abs(velocity.x) + accDelta > maxDelta:
-		velocity.x = maxDelta * input_direction.x
-	if input_direction.x != 0:
-		velocity.x += input_direction.x * accDelta
-	else: 
-		velocity.x = move_toward(velocity.x, 0, decDelta)
-	
-	# Y movement
-	if abs(velocity.y) + accDelta > maxDelta:
-		velocity.y = maxDelta * input_direction.y
-	if input_direction.y != 0:
-		velocity.y += input_direction.y * accDelta
+	if input_direction != Vector2.ZERO:
+		velocity += input_direction * accDelta
+		if velocity.length() > MAX_SPEED:
+			velocity = velocity.normalized() * MAX_SPEED
 	else:
-		velocity.y = move_toward(velocity.y, 0, decDelta)
+		velocity = velocity.move_toward(Vector2.ZERO, decDelta)
 
 # DANGER: Animations sector 
 func animate() -> void:
