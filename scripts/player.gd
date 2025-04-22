@@ -8,10 +8,16 @@ extends CharacterBody2D
 
 var input_direction: Vector2 = Vector2.ZERO
 var last_direction: Vector2 = Vector2.DOWN
+var attack: bool = false
+
+func input():
+	input_direction = Input.get_vector("left", "right", "up", "down").normalized()
+	if Input.is_action_just_pressed("attack"): attack = true
+	else: attack = false
 
 func _physics_process(delta: float) -> void:
 	# Direction
-	input_direction = Input.get_vector("left", "right", "up", "down").normalized()
+	input()
 	last_direction = input_direction if input_direction != Vector2.ZERO else last_direction
 	
 	animate()
@@ -47,6 +53,8 @@ func animate() -> void:
 	# Idle animation
 	if not input_direction:
 		idle_animations()
+	elif attack == true:
+		attack_animation()
 	else:
 		walk_animations()
 
@@ -70,3 +78,11 @@ func walk_animations() -> void:
 		ANIMATOR.play("walk_up")
 	else:
 		ANIMATOR.play("walk_side")
+
+func attack_animation() -> void:
+	if input_direction.y > 0:
+		ANIMATOR.play("attack_down")
+	elif input_direction.y < 0:
+		ANIMATOR.play("attack_up")
+	else:
+		ANIMATOR.play("attack_right")

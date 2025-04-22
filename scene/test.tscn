@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bs1g6ydpte2wp"]
+[gd_scene load_steps=4 format=3 uid="uid://cg5anokhl3o3s"]
 
 [ext_resource type="PackedScene" uid="uid://c1kiaciyi3cr3" path="res://scene/player.tscn" id="1_jojqj"]
 [ext_resource type="Texture2D" uid="uid://dtm0aq0tyldsn" path="res://assets/Tiles_(animated)/Overworld/water_tile_anim_strip_8.png" id="2_apcep"]
