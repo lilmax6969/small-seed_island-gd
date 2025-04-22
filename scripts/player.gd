@@ -104,3 +104,5 @@ func attack_animations() -> void:
 	
 	# Force a visual update
 	animate()
+	
+	print("Hello")
