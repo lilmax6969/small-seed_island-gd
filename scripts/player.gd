@@ -7,20 +7,24 @@ extends CharacterBody2D
 @export var MAX_SPEED: float = 75.0
 
 var input_direction: Vector2 = Vector2.ZERO
-var last_direction: Vector2 = Vector2.DOWN
+var anim_direction: Vector2 = Vector2.DOWN
+
 var attack: bool = false
+var attack_speed_multiplier: float = 1
+var flipped: int = 1
 
 func input():
 	input_direction = Input.get_vector("left", "right", "up", "down").normalized()
-	if Input.is_action_just_pressed("attack"): attack = true
-	else: attack = false
+	if Input.is_action_just_pressed("attack") and not attack: 
+		attack = true
+		attack_animations()
 
 func _physics_process(delta: float) -> void:
 	# Direction
-	input()
-	last_direction = input_direction if input_direction != Vector2.ZERO else last_direction
-	
-	animate()
+	if not attack:
+		input()
+		anim_direction = input_direction if input_direction != Vector2.ZERO else anim_direction
+		animate()
 	
 	update_velocity(delta)
 	move_and_slide()
@@ -40,23 +44,26 @@ func update_velocity(delta: float) -> void:
 func animate() -> void:
 	flip_logic()
 	
-	# Idle animation
-	if not input_direction:
+	if attack: return
+	
+	# Idle & walking animations
+	elif not input_direction:
 		idle_animations()
-	elif attack == true:
-		attack_animation()
 	else:
 		walk_animations()
 
 func flip_logic() -> void:
-	if last_direction.x < 0 and not last_direction.y:
+	if anim_direction.x < 0 and not anim_direction.y:
 		ANIMATOR.set_flip_h(true) 
-	else: ANIMATOR.set_flip_h(false)
+		flipped = -1
+	else: 
+		ANIMATOR.set_flip_h(false)
+		flipped = 1
 
 func idle_animations() -> void:
-	if last_direction.y > 0:
+	if anim_direction.y > 0:
 		ANIMATOR.play("idle_down")
-	elif last_direction.y < 0:
+	elif anim_direction.y < 0:
 		ANIMATOR.play("idle_up")
 	else:
 		ANIMATOR.play("idle_side")
@@ -69,10 +76,38 @@ func walk_animations() -> void:
 	else:
 		ANIMATOR.play("walk_side")
 
-func attack_animation() -> void:
-	if input_direction.y > 0:
+func offset_logic() -> void:
+	if not attack: 
+		ANIMATOR.offset = Vector2.ZERO
+	
+	else:
+		if anim_direction.y > 0:
+			ANIMATOR.offset.y = 7
+		elif anim_direction.y < 0:
+			ANIMATOR.offset.y = -9.5
+		else:
+			ANIMATOR.offset.x = 8 * flipped
+
+func attack_animations() -> void:
+	offset_logic()
+	
+	ANIMATOR.speed_scale = attack_speed_multiplier
+	
+	if anim_direction.y > 0:
 		ANIMATOR.play("attack_down")
-	elif input_direction.y < 0:
+	elif anim_direction.y < 0:
 		ANIMATOR.play("attack_up")
 	else:
-		ANIMATOR.play("attack_right")
+		ANIMATOR.play("attack_side")
+	
+	await ANIMATOR.animation_finished
+	
+	# Cancel the attack
+	attack = false
+	
+	# Reset the offset and speed
+	ANIMATOR.speed_scale = 1
+	offset_logic()
+	
+	# Force a visual update
+	animate()
