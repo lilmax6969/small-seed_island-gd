@@ -8,9 +8,6 @@ size = Vector2(128, 16)
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Mini Ben" parent="." instance=ExtResource("1_jojqj")]
-z_index = 1
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
@@ -20,3 +17,6 @@ shape = SubResource("RectangleShape2D_2aol2")
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
 position = Vector2(40, 25)
 texture = ExtResource("2_apcep")
+
+[node name="Mini Ben" parent="." instance=ExtResource("1_jojqj")]
+z_index = 1
