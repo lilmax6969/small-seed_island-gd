@@ -1,0 +1,83 @@
+[gd_scene load_steps=12 format=3 uid="uid://ckdhsybdkqouj"]
+
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_bmng2"]
+[ext_resource type="Texture2D" uid="uid://csaqho64a60fw" path="res://assets/Enemies_Sprites/Pinkslime_Sprites/pinkslime_spritesheet.png" id="1_grdlc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ro76f"]
+radius = 5.07098
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_25ow1"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4moc"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a7jbj"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wog1t"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(48, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ylp63"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(64, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7l16r"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(80, 64, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_v71j7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_25ow1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4moc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a7jbj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wog1t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ylp63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7l16r")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nj3ny"]
+radius = 5.24702
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_bmng2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.034565, -4.57977)
+shape = SubResource("CircleShape2D_ro76f")
+
+[node name="Animator" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.138257, -4.82172)
+sprite_frames = SubResource("SpriteFrames_v71j7")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.760441
+
+[node name="Damage" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Damage"]
+position = Vector2(0, -5.1102)
+shape = SubResource("CircleShape2D_nj3ny")
+debug_color = Color(0.849966, 0.0940096, 0.13724, 0.42)
+
+[connection signal="area_entered" from="Damage" to="." method="_on_damage_area_entered"]

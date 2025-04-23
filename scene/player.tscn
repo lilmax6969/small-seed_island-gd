@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://c1kiaciyi3cr3"]
+[gd_scene load_steps=64 format=3 uid="uid://c1kiaciyi3cr3"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_3lobu"]
 [ext_resource type="Texture2D" uid="uid://ca7tt33fh8rwf" path="res://assets/Char_Sprites/char_attack_down_anim_strip_6.png" id="2_4yai7"]
@@ -432,21 +432,46 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_iiklf"]
+radius = 3.26569
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d3qg4"]
+size = Vector2(33.0174, 14.6826)
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_31x2y"]
-radius = 4.0
+radius = 4.02129
 
 [node name="Mini Ben" type="CharacterBody2D"]
 script = ExtResource("1_3lobu")
 
-[node name="Animator" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -6)
-sprite_frames = SubResource("SpriteFrames_s3g4x")
-animation = &"attack_down"
-autoplay = "idle_down"
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(7, 7)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -4)
+[node name="Animator" type="AnimatedSprite2D" parent="."]
+position = Vector2(-0.47028, -6)
+sprite_frames = SubResource("SpriteFrames_s3g4x")
+animation = &"idle_up"
+autoplay = "idle_down"
+frame_progress = 0.25541
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-0.164391, -3.30424)
+shape = SubResource("CircleShape2D_iiklf")
+debug_color = Color(0, 0.650306, 0.100696, 0.42)
+
+[node name="Sword" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sword"]
+position = Vector2(0.0383949, -7.40199)
+shape = SubResource("RectangleShape2D_d3qg4")
+debug_color = Color(0.964174, 0.229244, 0.200238, 0.42)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2.74737)
+scale = Vector2(0.75, 0.75)
 shape = SubResource("CircleShape2D_31x2y")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(5, 5)
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]

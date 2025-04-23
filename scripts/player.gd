@@ -1,17 +1,34 @@
 extends CharacterBody2D
 
 @onready var ANIMATOR = $Animator
+@onready var SWORD = $Sword
 
 @export var ACCELERATION: float = 750.0
 @export var DECELERATION: float = 1000.0
 @export var MAX_SPEED: float = 75.0
 
+var attack: bool = false
+var knockbacked: bool = false
+
 var input_direction: Vector2 = Vector2.ZERO
 var anim_direction: Vector2 = Vector2.DOWN
 
-var attack: bool = false
-var attack_speed_multiplier: float = 1
+var attack_speed_multiplier: float = 1.2
 var flipped: int = 1
+
+func _ready():
+	SWORD.monitoring = false
+
+func _physics_process(delta: float) -> void:
+	# Direction
+	input()
+	
+	if not attack:
+		anim_direction = input_direction if input_direction != Vector2.ZERO else anim_direction
+		animate()
+		
+	update_velocity(delta)
+	move_and_slide()
 
 func input():
 	input_direction = Input.get_vector("left", "right", "up", "down").normalized()
@@ -19,26 +36,23 @@ func input():
 		attack = true
 		attack_animations()
 
-func _physics_process(delta: float) -> void:
-	# Direction
-	if not attack:
-		input()
-		anim_direction = input_direction if input_direction != Vector2.ZERO else anim_direction
-		animate()
-	
-	update_velocity(delta)
-	move_and_slide()
-
 func update_velocity(delta: float) -> void:
 	var accDelta = ACCELERATION * delta
 	var decDelta = DECELERATION * delta
 	
-	if input_direction != Vector2.ZERO:
+	if (
+		input_direction != Vector2.ZERO and 
+		not attack and 
+		not knockbacked
+	):
 		velocity += input_direction * accDelta
 		if velocity.length() > MAX_SPEED:
 			velocity = velocity.normalized() * MAX_SPEED
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, decDelta)
+	
+	if knockbacked and velocity == Vector2.ZERO: 
+		knockbacked = false 
 
 # DANGER: Animations sector 
 func animate() -> void:
@@ -77,32 +91,49 @@ func walk_animations() -> void:
 		ANIMATOR.play("walk_side")
 
 func attack_animations() -> void:
+	SWORD.monitoring = true
+	
 	if anim_direction.y > 0:
+		SWORD.position.y = ANIMATOR.position.y + 14
+		
+		ANIMATOR.play("attack_down")
 		ANIMATOR.offset.y = 7
 	elif anim_direction.y < 0:
+		SWORD.position.y = ANIMATOR.position.y - 2
+		
+		ANIMATOR.play("attack_up")
 		ANIMATOR.offset.y = -9.5
 	else:
+		SWORD.rotation = PI/2 * flipped
+		SWORD.position = ANIMATOR.position + Vector2(3 * flipped, -1)
+		
+		ANIMATOR.play("attack_side")
 		ANIMATOR.offset.x = 8 * flipped
 	
 	ANIMATOR.speed_scale = attack_speed_multiplier
-	
-	if anim_direction.y > 0:
-		ANIMATOR.play("attack_down")
-	elif anim_direction.y < 0:
-		ANIMATOR.play("attack_up")
-	else:
-		ANIMATOR.play("attack_side")
 	
 	await ANIMATOR.animation_finished
 	
 	# Cancel the attack
 	attack = false
 	
-	# Reset the offset and speed
+	# Reset the animator
 	ANIMATOR.speed_scale = 1
 	ANIMATOR.offset = Vector2.ZERO
 	
+	# Reset the Sword
+	SWORD.rotation = 0
+	SWORD.position = ANIMATOR.position
+	SWORD.monitoring = false
+	
 	# Force a visual update
 	animate()
+
+
+func _on_hitbox_area_entered(area):
+	if area.name != "Damage": return
+	var enemy = area.get_parent()
+	var att_direction: Vector2 = (global_position - enemy.global_position).normalized()
 	
-	print("Hello")
+	velocity = att_direction * enemy.attack_knockback
+	knockbacked = true
