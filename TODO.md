@@ -13,6 +13,7 @@
  - [X] Test enemy
  - [X] Bug knockback player
  - [X] Knockback (player attack)
+ - [ ] Hit animation for the player
 
 ## Maxime
  - [ ] Test map (pour tester les fonctionalitées)
