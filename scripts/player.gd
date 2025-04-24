@@ -2,13 +2,16 @@ extends CharacterBody2D
 
 @onready var ANIMATOR = $Animator
 @onready var SWORD = $Sword
+@onready var COLLISION = $Collision
 
 @export var ACCELERATION: float = 750.0
 @export var DECELERATION: float = 1000.0
 @export var MAX_SPEED: float = 75.0
+@export var KNOCKBACK_COOLDOWN: float = 0.3
 
 var attack: bool = false
 var knockbacked: bool = false
+var knockbacked_timer: float = KNOCKBACK_COOLDOWN
 
 var input_direction: Vector2 = Vector2.ZERO
 var anim_direction: Vector2 = Vector2.DOWN
@@ -18,6 +21,7 @@ var flipped: int = 1
 
 func _ready():
 	SWORD.monitoring = false
+	#$Collision.disabled = true
 
 func _physics_process(delta: float) -> void:
 	# Direction
@@ -26,8 +30,10 @@ func _physics_process(delta: float) -> void:
 	if not attack:
 		anim_direction = input_direction if input_direction != Vector2.ZERO else anim_direction
 		animate()
-		
+	
+	update_knockback_timer(delta)
 	update_velocity(delta)
+	
 	move_and_slide()
 
 func input():
@@ -129,11 +135,22 @@ func attack_animations() -> void:
 	# Force a visual update
 	animate()
 
+# ALERT: Ultra DANGER zone (knockback)
+
+func update_knockback_timer(delta: float):
+	if knockbacked_timer < 0: return
+	knockbacked_timer -= delta
 
 func _on_hitbox_area_entered(area):
 	if area.name != "Damage": return
+	if knockbacked_timer > 0: return
+	
 	var enemy = area.get_parent()
 	var att_direction: Vector2 = (global_position - enemy.global_position).normalized()
 	
+	global_position += att_direction * 125
 	velocity = att_direction * enemy.attack_knockback
+	
 	knockbacked = true
+	knockbacked_timer = KNOCKBACK_COOLDOWN
+	print(velocity,' ', knockbacked,' ', enemy.velocity)

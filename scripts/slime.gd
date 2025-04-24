@@ -1,12 +1,13 @@
 extends CharacterBody2D
 
+
 @onready var ANIMATOR = $Animator
 @onready var HITBOX = $Damage
 
-@export var DECELERATION: float = 750.0
+@export var DECELERATION: float = 500.0
 @export var life: int = 5
 @export var knockback: int = 150
-@export var attack_knockback: int = 250
+@export var attack_knockback: int = 150
 
 var attacked: bool
 
@@ -19,7 +20,7 @@ func _physics_process(delta):
 func update_velocity(delta):
 	var decDelta = DECELERATION * delta
 	velocity = velocity.move_toward(Vector2.ZERO, decDelta)
-
+	
 func check_hit() -> bool:
 	var overlapping_areas = HITBOX.get_overlapping_areas()
 	
@@ -27,11 +28,13 @@ func check_hit() -> bool:
 		if area.name != "Sword": continue
 		var player: CharacterBody2D = area.get_parent()
 		
-		if not attacked: hitted(player)
-		if player.attack: return true
+		if not attacked and player.attack: hitted(player)
+		return true
 		
 	return false
 
 func hitted(player: CharacterBody2D):
 	if not player.attack: return
-	velocity += knockback * player.anim_direction
+	
+	var knockback_dir = (global_position - player.global_position).normalized()
+	velocity = knockback * knockback_dir

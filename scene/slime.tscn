@@ -60,6 +60,9 @@ animations = [{
 radius = 5.24702
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 16
+collision_mask = 4
+safe_margin = 1.0
 script = ExtResource("1_bmng2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
