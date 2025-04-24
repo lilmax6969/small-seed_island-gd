@@ -7,7 +7,7 @@ extends CharacterBody2D
 @export var ACCELERATION: float = 750.0
 @export var DECELERATION: float = 1000.0
 @export var MAX_SPEED: float = 75.0
-@export var KNOCKBACK_COOLDOWN: float = 0.3
+@export var KNOCKBACK_COOLDOWN: float = 0.4
 
 var attack: bool = false
 var knockbacked: bool = false
@@ -48,7 +48,8 @@ func update_velocity(delta: float) -> void:
 	if (
 		input_direction != Vector2.ZERO and 
 		not attack and 
-		not knockbacked
+		not knockbacked and 
+		knockbacked_timer <= 0
 	):
 		velocity += input_direction * accDelta
 		if velocity.length() > MAX_SPEED:
@@ -63,7 +64,8 @@ func update_velocity(delta: float) -> void:
 func animate() -> void:
 	flip_logic()
 	
-	if attack: return
+	if attack or knockbacked: 
+		return
 	
 	# Idle & walking animations
 	elif not input_direction:
@@ -134,6 +136,15 @@ func attack_animations() -> void:
 	# Force a visual update
 	animate()
 
+func hit_animations() -> void:
+	print(anim_direction, ' ', input_direction)
+	
+	if anim_direction.y > 0:
+		ANIMATOR.play("hit_down")
+	elif anim_direction.y < 0:
+		ANIMATOR.play("hit_up")
+	else: ANIMATOR.play("hit_side")
+
 # ALERT: Ultra DANGER zone (knockback)
 
 func update_knockback_timer(delta: float):
@@ -149,13 +160,8 @@ func _on_hitbox_area_entered(area):
 	
 	velocity = att_direction * enemy.attack_knockback
 	
-	if anim_direction.y > 0:
-		ANIMATOR.play("hit_down")
-	elif anim_direction.y < 0:
-		ANIMATOR.play("hit_up")
-	else: ANIMATOR.play("hit_side")
-		
-	await ANIMATOR.animation_finished
-	
 	knockbacked = true
 	knockbacked_timer = KNOCKBACK_COOLDOWN
+	
+	hit_animations()
+	await ANIMATOR.animation_finished

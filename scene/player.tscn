@@ -102,17 +102,17 @@ region = Rect2(256, 48, 16, 16)
 atlas = ExtResource("2_a8cy8")
 region = Rect2(272, 48, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_afjps"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfnbs"]
 atlas = ExtResource("2_a8cy8")
-region = Rect2(240, 32, 16, 16)
+region = Rect2(240, 64, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_71glv"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_46txw"]
 atlas = ExtResource("2_a8cy8")
-region = Rect2(256, 32, 16, 16)
+region = Rect2(256, 64, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_yvffy"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pp74w"]
 atlas = ExtResource("2_a8cy8")
-region = Rect2(272, 32, 16, 16)
+region = Rect2(272, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vmw6c"]
 atlas = ExtResource("2_a8cy8")
@@ -333,7 +333,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nw6dx")
 }, {
-"duration": 1.0,
+"duration": 80.0,
 "texture": SubResource("AtlasTexture_rhhw3")
 }, {
 "duration": 1.0,
@@ -347,7 +347,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ffq5j")
 }, {
-"duration": 1.0,
+"duration": 80.0,
 "texture": SubResource("AtlasTexture_xllfx")
 }, {
 "duration": 1.0,
@@ -359,13 +359,13 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_afjps")
+"texture": SubResource("AtlasTexture_tfnbs")
+}, {
+"duration": 80.0,
+"texture": SubResource("AtlasTexture_46txw")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_71glv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_yvffy")
+"texture": SubResource("AtlasTexture_pp74w")
 }],
 "loop": false,
 "name": &"hit_up",
@@ -530,7 +530,7 @@ zoom = Vector2(7, 7)
 [node name="Animator" type="AnimatedSprite2D" parent="."]
 position = Vector2(-0.47028, -6)
 sprite_frames = SubResource("SpriteFrames_s3g4x")
-animation = &"hit_side"
+animation = &"hit_down"
 autoplay = "idle_down"
 
 [node name="Hitbox" type="Area2D" parent="."]
