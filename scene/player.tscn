@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://c1kiaciyi3cr3"]
+[gd_scene load_steps=73 format=3 uid="uid://c1kiaciyi3cr3"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_3lobu"]
 [ext_resource type="Texture2D" uid="uid://ca7tt33fh8rwf" path="res://assets/Char_Sprites/char_attack_down_anim_strip_6.png" id="2_4yai7"]
@@ -77,6 +77,42 @@ region = Rect2(192, 0, 48, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_c3hji"]
 atlas = ExtResource("5_nknb7")
 region = Rect2(240, 0, 48, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nw6dx"]
+atlas = ExtResource("2_a8cy8")
+region = Rect2(240, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhhw3"]
+atlas = ExtResource("2_a8cy8")
+region = Rect2(256, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyckt"]
+atlas = ExtResource("2_a8cy8")
+region = Rect2(272, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ffq5j"]
+atlas = ExtResource("2_a8cy8")
+region = Rect2(240, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xllfx"]
+atlas = ExtResource("2_a8cy8")
+region = Rect2(256, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlodh"]
+atlas = ExtResource("2_a8cy8")
+region = Rect2(272, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_afjps"]
+atlas = ExtResource("2_a8cy8")
+region = Rect2(240, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71glv"]
+atlas = ExtResource("2_a8cy8")
+region = Rect2(256, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yvffy"]
+atlas = ExtResource("2_a8cy8")
+region = Rect2(272, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vmw6c"]
 atlas = ExtResource("2_a8cy8")
@@ -295,6 +331,48 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_nw6dx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhhw3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyckt")
+}],
+"loop": false,
+"name": &"hit_down",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ffq5j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xllfx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlodh")
+}],
+"loop": false,
+"name": &"hit_side",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_afjps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71glv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yvffy")
+}],
+"loop": false,
+"name": &"hit_up",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_vmw6c")
 }, {
 "duration": 1.0,
@@ -452,9 +530,8 @@ zoom = Vector2(7, 7)
 [node name="Animator" type="AnimatedSprite2D" parent="."]
 position = Vector2(-0.47028, -6)
 sprite_frames = SubResource("SpriteFrames_s3g4x")
-animation = &"idle_up"
+animation = &"hit_side"
 autoplay = "idle_down"
-frame_progress = 0.25541
 
 [node name="Hitbox" type="Area2D" parent="."]
 

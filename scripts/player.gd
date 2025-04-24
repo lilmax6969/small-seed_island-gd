@@ -21,7 +21,6 @@ var flipped: int = 1
 
 func _ready():
 	SWORD.monitoring = false
-	#$Collision.disabled = true
 
 func _physics_process(delta: float) -> void:
 	# Direction
@@ -149,6 +148,14 @@ func _on_hitbox_area_entered(area):
 	var att_direction: Vector2 = (global_position - enemy.global_position).normalized()
 	
 	velocity = att_direction * enemy.attack_knockback
+	
+	if anim_direction.y > 0:
+		ANIMATOR.play("hit_down")
+	elif anim_direction.y < 0:
+		ANIMATOR.play("hit_up")
+	else: ANIMATOR.play("hit_side")
+		
+	await ANIMATOR.animation_finished
 	
 	knockbacked = true
 	knockbacked_timer = KNOCKBACK_COOLDOWN
