@@ -10,9 +10,9 @@
 ## Étienne
  - [x] Animations de bases (idle, walk, etc)
  - [x] Système de combat
-  - [X] Test enemy
-  - [ ] Bug knockback player
-  - [ ] Knockback (player attack)
+ - [X] Test enemy
+ - [X] Bug knockback player
+ - [X] Knockback (player attack)
 
 ## Maxime
  - [ ] Test map (pour tester les fonctionalitées)

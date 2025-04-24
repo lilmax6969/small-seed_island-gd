@@ -1,6 +1,5 @@
 extends CharacterBody2D
 
-
 @onready var ANIMATOR = $Animator
 @onready var HITBOX = $Damage
 
@@ -35,7 +34,11 @@ func check_hit() -> bool:
 func hitted(player: CharacterBody2D):
 	if not player.attack: return
 	
+	var look_vector: Vector2 = player.anim_direction
 	var knockback_dir = (global_position - player.global_position).normalized()
+
+	if look_vector.dot(knockback_dir) < 0: return
+	
 	velocity = knockback * knockback_dir
 	
 	ANIMATOR.play("hit")
