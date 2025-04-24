@@ -1,10 +1,26 @@
-[gd_scene load_steps=12 format=3 uid="uid://ckdhsybdkqouj"]
+[gd_scene load_steps=16 format=3 uid="uid://ckdhsybdkqouj"]
 
 [ext_resource type="Script" path="res://scripts/slime.gd" id="1_bmng2"]
 [ext_resource type="Texture2D" uid="uid://csaqho64a60fw" path="res://assets/Enemies_Sprites/Pinkslime_Sprites/pinkslime_spritesheet.png" id="1_grdlc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ro76f"]
 radius = 5.07098
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qumc6"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3dft"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_134nw"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijk6i"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(176, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_25ow1"]
 atlas = ExtResource("1_grdlc")
@@ -34,6 +50,23 @@ region = Rect2(80, 64, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_qumc6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3dft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_134nw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijk6i")
+}],
+"loop": false,
+"name": &"hit",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_25ow1")
 }, {
 "duration": 1.0,
@@ -60,8 +93,7 @@ animations = [{
 radius = 5.24702
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-collision_layer = 16
-collision_mask = 4
+collision_layer = 0
 safe_margin = 1.0
 script = ExtResource("1_bmng2")
 
@@ -72,9 +104,10 @@ shape = SubResource("CircleShape2D_ro76f")
 [node name="Animator" type="AnimatedSprite2D" parent="."]
 position = Vector2(0.138257, -4.82172)
 sprite_frames = SubResource("SpriteFrames_v71j7")
-animation = &"idle"
+animation = &"hit"
 autoplay = "idle"
-frame_progress = 0.760441
+frame = 3
+frame_progress = 1.0
 
 [node name="Damage" type="Area2D" parent="."]
 

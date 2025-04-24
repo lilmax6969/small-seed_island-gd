@@ -442,8 +442,7 @@ size = Vector2(33.0174, 14.6826)
 radius = 4.02129
 
 [node name="Mini Ben" type="CharacterBody2D"]
-collision_layer = 4
-collision_mask = 16
+collision_layer = 0
 safe_margin = 0.5
 script = ExtResource("1_3lobu")
 

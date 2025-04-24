@@ -6,13 +6,12 @@ extends CharacterBody2D
 
 @export var DECELERATION: float = 500.0
 @export var life: int = 5
-@export var knockback: int = 150
+@export var knockback: int = 125
 @export var attack_knockback: int = 150
 
 var attacked: bool
 
 func _physics_process(delta):
-	#print(life)
 	attacked = check_hit()
 	update_velocity(delta)
 	move_and_slide()
@@ -28,8 +27,8 @@ func check_hit() -> bool:
 		if area.name != "Sword": continue
 		var player: CharacterBody2D = area.get_parent()
 		
-		if not attacked and player.attack: hitted(player)
-		return true
+		if not attacked: hitted(player)
+		if player.attack: return true
 		
 	return false
 
@@ -38,3 +37,7 @@ func hitted(player: CharacterBody2D):
 	
 	var knockback_dir = (global_position - player.global_position).normalized()
 	velocity = knockback * knockback_dir
+	
+	ANIMATOR.play("hit")
+	await ANIMATOR.animation_finished
+	ANIMATOR.play("idle")

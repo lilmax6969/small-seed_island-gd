@@ -148,9 +148,7 @@ func _on_hitbox_area_entered(area):
 	var enemy = area.get_parent()
 	var att_direction: Vector2 = (global_position - enemy.global_position).normalized()
 	
-	global_position += att_direction * 125
 	velocity = att_direction * enemy.attack_knockback
 	
 	knockbacked = true
 	knockbacked_timer = KNOCKBACK_COOLDOWN
-	print(velocity,' ', knockbacked,' ', enemy.velocity)
