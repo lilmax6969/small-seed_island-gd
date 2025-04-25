@@ -68,7 +68,8 @@ func animate() -> void:
 		return
 	
 	# Idle & walking animations
-	elif not input_direction:
+	ANIMATOR.speed_scale = 1
+	if not input_direction:
 		idle_animations()
 	else:
 		walk_animations()
@@ -137,13 +138,17 @@ func attack_animations() -> void:
 	animate()
 
 func hit_animations() -> void:
-	print(anim_direction, ' ', input_direction)
+	ANIMATOR.speed_scale = 2
 	
 	if anim_direction.y > 0:
 		ANIMATOR.play("hit_down")
 	elif anim_direction.y < 0:
 		ANIMATOR.play("hit_up")
 	else: ANIMATOR.play("hit_side")
+	
+	await ANIMATOR.animation_finished
+	
+	ANIMATOR.speed_scale = 1
 
 # ALERT: Ultra DANGER zone (knockback)
 
