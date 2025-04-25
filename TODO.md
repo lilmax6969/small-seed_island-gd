@@ -14,6 +14,8 @@
  - [X] Bug knockback player
  - [X] Knockback (player attack)
  - [X] Hit animation for the player
+ - [X] Enemy class
+ - [ ] Remove repetetive code 
 
 ## Maxime
  - [ ] Test map (pour tester les fonctionalitées)
