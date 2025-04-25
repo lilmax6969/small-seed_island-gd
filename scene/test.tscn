@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cg5anokhl3o3s"]
+[gd_scene load_steps=7 format=3 uid="uid://cg5anokhl3o3s"]
 
 [ext_resource type="PackedScene" uid="uid://c1kiaciyi3cr3" path="res://scene/player.tscn" id="1_jojqj"]
 [ext_resource type="Texture2D" uid="uid://cmitseqs6t56k" path="res://assets/Overworld_Tileset.png" id="3_me2p4"]
 [ext_resource type="PackedScene" uid="uid://ckdhsybdkqouj" path="res://scene/slime.tscn" id="3_rfoqu"]
+[ext_resource type="PackedScene" uid="uid://coxwwnqg1d25e" path="res://scene/phantom.tscn" id="4_agi0e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_30hoi"]
 texture = ExtResource("3_me2p4")
@@ -243,3 +244,5 @@ layer_0/tile_data = PackedInt32Array(-196611, 262144, 0, -131075, 262144, 1, -65
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_rfoqu")]
 position = Vector2(0, -24)
+
+[node name="CharacterBody2D2" parent="." instance=ExtResource("4_agi0e")]

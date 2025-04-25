@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://ckdhsybdkqouj"]
+[gd_scene load_steps=22 format=3 uid="uid://ckdhsybdkqouj"]
 
 [ext_resource type="Script" path="res://scripts/slime.gd" id="1_bmng2"]
 [ext_resource type="Texture2D" uid="uid://csaqho64a60fw" path="res://assets/Enemies_Sprites/Pinkslime_Sprites/pinkslime_spritesheet.png" id="1_grdlc"]
@@ -46,6 +46,30 @@ region = Rect2(64, 64, 16, 16)
 atlas = ExtResource("1_grdlc")
 region = Rect2(80, 64, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwbce"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tgeuv"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ni3a6"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u3jev"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wur74"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7b3dw"]
+atlas = ExtResource("1_grdlc")
+region = Rect2(80, 32, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_v71j7"]
 animations = [{
 "frames": [{
@@ -87,6 +111,29 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwbce")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tgeuv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ni3a6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u3jev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wur74")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7b3dw")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 9.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nj3ny"]

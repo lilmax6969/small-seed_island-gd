@@ -8,14 +8,14 @@ var enemy = Enemy.new()
 func _ready():
 	enemy.DECELERATION = 500.0
 	enemy.life = 5
-	enemy.knockback = 125
+	enemy.knockback = 100
 	enemy.attack_knockback = 150
 
 func _physics_process(delta):
 	update_life()
 	update_velocity(delta)
 	move_and_slide()
-	
+
 func update_velocity(delta):
 	var decDelta = enemy.DECELERATION * delta
 	velocity = velocity.move_toward(Vector2.ZERO, decDelta)
