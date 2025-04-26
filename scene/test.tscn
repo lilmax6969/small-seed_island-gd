@@ -144,7 +144,7 @@ y_sort_enabled = true
 z_index = 1
 y_sort_enabled = true
 
-[node name="vehetations" type="TileMapLayer" parent="y-sorted_objects"]
+[node name="vegetations" type="TileMapLayer" parent="y-sorted_objects"]
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAADAAAAAAAEAAUAAAAEAAAAAAADAAUAAAAGAAAAAAAFAAkAAAACAAAAAAAFAAkAAAAIAP//AAAAAAkAAAALAP//AAAAAAsAAAAMAP7/AAACAAkAAAA=")
 tile_set = SubResource("TileSet_i8jjd")
