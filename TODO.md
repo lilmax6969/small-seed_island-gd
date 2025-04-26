@@ -9,10 +9,18 @@
 
 ## Étienne
  - [x] Animations de bases (idle, walk, etc)
- - [ ] Test map (pour tester les fonctionalitées)
+ - [x] Système de combat
+ - [X] Test enemy
+ - [X] Bug knockback player
+ - [X] Knockback (player attack)
+ - [X] Hit animation for the player
+ - [X] Enemy class
+ - [X] Remove repetetive code 
+ - [ ] Y sorting (map)
+ - [ ] Enemy A.I.
 
 ## Maxime
- - [ ] Système de combat
+ - [X] Test map (pour tester les fonctionalitées)
 
 ## Laurent
 - [ ] Desing la map (non urgent)
