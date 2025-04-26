@@ -15,10 +15,12 @@
  - [X] Knockback (player attack)
  - [X] Hit animation for the player
  - [X] Enemy class
- - [ ] Remove repetetive code 
+ - [X] Remove repetetive code 
+ - [ ] Y sorting (map)
+ - [ ] Enemy A.I.
 
 ## Maxime
- - [ ] Test map (pour tester les fonctionalitées)
+ - [X] Test map (pour tester les fonctionalitées)
 
 ## Laurent
 - [ ] Desing la map (non urgent)

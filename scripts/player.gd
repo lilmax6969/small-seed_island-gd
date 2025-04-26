@@ -16,7 +16,7 @@ var knockbacked_timer: float = KNOCKBACK_COOLDOWN
 var input_direction: Vector2 = Vector2.ZERO
 var anim_direction: Vector2 = Vector2.DOWN
 
-var attack_speed_multiplier: float = 1.2
+var attack_speed_multiplier: float = 1.3
 var flipped: int = 1
 
 func _ready():
@@ -163,7 +163,7 @@ func _on_hitbox_area_entered(area):
 	var enemy = area.get_parent()
 	var att_direction: Vector2 = (global_position - enemy.global_position).normalized()
 	
-	velocity = att_direction * enemy.enemy.attack_knockback
+	velocity = att_direction * enemy.attack_knockback
 	
 	knockbacked = true
 	knockbacked_timer = KNOCKBACK_COOLDOWN

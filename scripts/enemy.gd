@@ -1,9 +1,13 @@
-class_name Enemy
+extends CharacterBody2D
 
-var DECELERATION: float
-var life: int
-var knockback: float
-var attack_knockback: int
+@export var DECELERATION: float = 500.0
+@export var life: int = 5
+@export var knockback_force: float = 150.0
+@export var attack_knockback: int = 100.0
+
+func decelerate(delta: float):
+	var decDelta = DECELERATION * delta
+	velocity = velocity.move_toward(Vector2.ZERO, decDelta)
 
 func check_overlaping_area(HITBOX: Area2D) -> Area2D:
 	var overlap_areas = HITBOX.get_overlapping_areas()
@@ -14,25 +18,23 @@ func check_overlaping_area(HITBOX: Area2D) -> Area2D:
 		return area
 	return null
 
-func apply_knockback(PLAYER: CharacterBody2D, global_position: Vector2,) -> Vector2:
+func apply_knockback(PLAYER: CharacterBody2D):
 	var look_vector: Vector2 = PLAYER.anim_direction
 	var knockback_dir: Vector2 = (global_position - PLAYER.global_position).normalized()
 	
 	if look_vector.dot(knockback_dir) < 0: 
-		return Vector2.ZERO
+		return
 	
-	var new_vel: Vector2 = knockback_dir * knockback
-	return new_vel
+	velocity = knockback_dir * knockback_force	
 
-func check_hit(HITBOX: Area2D, global_position: Vector2) -> Vector2:
+func check_hit(HITBOX: Area2D) -> bool:
 	var overlap_area = check_overlaping_area(HITBOX)
 	if not overlap_area:
-		return Vector2.ZERO
-		
+		return false
+	
 	var PLAYER = overlap_area.get_parent()
-	var new_vel: Vector2 = apply_knockback(PLAYER, global_position)
+	if not PLAYER.attack:
+		return false
 	
-	if not new_vel or not PLAYER.attack:
-		return Vector2.ZERO
-	
-	return new_vel
+	apply_knockback(PLAYER)
+	return true
