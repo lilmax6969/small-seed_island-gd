@@ -8,10 +8,12 @@ extends CharacterBody2D
 @export var DECELERATION: float = 1000.0
 @export var MAX_SPEED: float = 75.0
 @export var KNOCKBACK_COOLDOWN: float = 0.4
+@export var ATTACK_COOLDOWN: float = 0.5
 
 var attack: bool = false
 var knockbacked: bool = false
 var knockbacked_timer: float = KNOCKBACK_COOLDOWN
+var attack_timer: float = 0
 
 var input_direction: Vector2 = Vector2.ZERO
 var anim_direction: Vector2 = Vector2.DOWN
@@ -23,6 +25,10 @@ func _ready():
 	SWORD.monitoring = false
 
 func _physics_process(delta: float) -> void:
+	# Update timer
+	knockbacked_timer = update_timer(knockbacked_timer, delta)
+	attack_timer = update_timer(attack_timer, delta)
+	
 	# Direction
 	input()
 	
@@ -30,15 +36,18 @@ func _physics_process(delta: float) -> void:
 		anim_direction = input_direction if input_direction != Vector2.ZERO else anim_direction
 		animate()
 	
-	update_knockback_timer(delta)
 	update_velocity(delta)
-	
 	move_and_slide()
 
 func input():
 	input_direction = Input.get_vector("left", "right", "up", "down").normalized()
-	if Input.is_action_just_pressed("attack") and not attack: 
+	if (
+		Input.is_action_just_pressed("attack") and 
+		not attack and attack_timer <= 0 and
+		not knockbacked and knockbacked_timer <= 0
+	): 
 		attack = true
+		attack_timer = ATTACK_COOLDOWN
 		attack_animations()
 
 func update_velocity(delta: float) -> void:
@@ -47,7 +56,7 @@ func update_velocity(delta: float) -> void:
 	
 	if (
 		input_direction != Vector2.ZERO and 
-		not attack and 
+		not attack and
 		not knockbacked and 
 		knockbacked_timer <= 0
 	):
@@ -59,6 +68,11 @@ func update_velocity(delta: float) -> void:
 	
 	if knockbacked and velocity == Vector2.ZERO: 
 		knockbacked = false 
+
+func update_timer(timer: float, delta: float) -> float:
+	if timer <= 0:
+		return 0.0
+	return timer - delta
 
 # DANGER: Animations sector 
 func animate() -> void:
@@ -151,11 +165,6 @@ func hit_animations() -> void:
 	ANIMATOR.speed_scale = 1
 
 # ALERT: Ultra DANGER zone (knockback)
-
-func update_knockback_timer(delta: float):
-	if knockbacked_timer < 0: return
-	knockbacked_timer -= delta
-
 func _on_hitbox_area_entered(area):
 	if area.name != "Damage": return
 	if knockbacked_timer > 0: return
