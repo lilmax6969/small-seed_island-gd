@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://jb1nfihb1p8"]
+[gd_scene load_steps=21 format=3 uid="uid://jb1nfihb1p8"]
 
 [ext_resource type="PackedScene" uid="uid://blnqtguvrxpm7" path="res://scenes/enemy.tscn" id="1_gvb4h"]
 [ext_resource type="Script" path="res://scripts/phantom.gd" id="2_s4adx"]
@@ -36,6 +36,30 @@ region = Rect2(32, 64, 16, 16)
 atlas = ExtResource("2_s6vxh")
 region = Rect2(48, 64, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_anfe4"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23epb"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ku48"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kujqq"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjxpt"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgb81"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(80, 16, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_h2eka"]
 animations = [{
 "frames": [{
@@ -71,6 +95,29 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_anfe4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23epb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ku48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kujqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjxpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgb81")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aq01p"]
@@ -80,13 +127,14 @@ radius = 4.0
 radius = 3.0
 
 [node name="Enemy" instance=ExtResource("1_gvb4h")]
+collision_layer = 2
 script = ExtResource("2_s4adx")
 attack_knockback = 150
 
 [node name="Animator" type="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_h2eka")
-animation = &"idle"
+animation = &"walk"
 autoplay = "idle"
 
 [node name="Damage" type="Area2D" parent="." index="1"]

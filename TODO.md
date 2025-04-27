@@ -16,6 +16,9 @@
  - [X] Remove repetetive code 
  - [X] Y sorting (map)
  - [ ] Enemy A.I.
+ - [ ] Enemy animation
+ - [ ] Make a global file for a timer class and overlapping area
+ - [ ] Visual clue for invisibility
  - [ ] Player ladder
 
 ## Maxime

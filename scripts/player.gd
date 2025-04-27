@@ -2,12 +2,13 @@ extends CharacterBody2D
 
 @onready var ANIMATOR = $Animator
 @onready var SWORD = $Sword
+@onready var HITBOX = $Hitbox
 @onready var COLLISION = $Collision
 
 @export var ACCELERATION: float = 750.0
 @export var DECELERATION: float = 1000.0
 @export var MAX_SPEED: float = 75.0
-@export var KNOCKBACK_COOLDOWN: float = 0.4
+@export var KNOCKBACK_COOLDOWN: float = 0.75
 @export var ATTACK_COOLDOWN: float = 0.5
 
 var attack: bool = false
@@ -21,8 +22,10 @@ var anim_direction: Vector2 = Vector2.DOWN
 var attack_speed_multiplier: float = 1.3
 var flipped: int = 1
 
+var default_sword_pos: Vector2
+
 func _ready():
-	SWORD.monitoring = false
+	default_sword_pos = SWORD.position
 
 func _physics_process(delta: float) -> void:
 	# Update timer
@@ -36,6 +39,10 @@ func _physics_process(delta: float) -> void:
 		anim_direction = input_direction if input_direction != Vector2.ZERO else anim_direction
 		animate()
 	
+	# Check for a hit
+	check_hit()
+	
+	# Update position
 	update_velocity(delta)
 	move_and_slide()
 
@@ -44,7 +51,7 @@ func input():
 	if (
 		Input.is_action_just_pressed("attack") and 
 		not attack and attack_timer <= 0 and
-		not knockbacked and knockbacked_timer <= 0
+		not knockbacked
 	): 
 		attack = true
 		attack_timer = ATTACK_COOLDOWN
@@ -57,8 +64,7 @@ func update_velocity(delta: float) -> void:
 	if (
 		input_direction != Vector2.ZERO and 
 		not attack and
-		not knockbacked and 
-		knockbacked_timer <= 0
+		not knockbacked
 	):
 		velocity += input_direction * accDelta
 		if velocity.length() > MAX_SPEED:
@@ -113,8 +119,6 @@ func walk_animations() -> void:
 		ANIMATOR.play("walk_side")
 
 func attack_animations() -> void:
-	SWORD.monitoring = true
-	
 	if anim_direction.y > 0:
 		SWORD.position.y = ANIMATOR.position.y + 14
 		
@@ -133,9 +137,10 @@ func attack_animations() -> void:
 		ANIMATOR.offset.x = 8 * flipped
 	
 	ANIMATOR.speed_scale = attack_speed_multiplier
-	
 	await ANIMATOR.animation_finished
-	
+	stop_attack()
+
+func stop_attack() -> void:
 	# Cancel the attack
 	attack = false
 	
@@ -145,8 +150,7 @@ func attack_animations() -> void:
 	
 	# Reset the Sword
 	SWORD.rotation = 0
-	SWORD.position = ANIMATOR.position
-	SWORD.monitoring = false
+	SWORD.position = default_sword_pos
 	
 	# Force a visual update
 	animate()
@@ -161,12 +165,21 @@ func hit_animations() -> void:
 	else: ANIMATOR.play("hit_side")
 	
 	await ANIMATOR.animation_finished
-	
 	ANIMATOR.speed_scale = 1
 
 # ALERT: Ultra DANGER zone (knockback)
-func _on_hitbox_area_entered(area):
-	if area.name != "Damage": return
+func check_overlap(AREA: Area2D, area_name: String) -> Area2D:
+	var overlap = AREA.get_overlapping_areas()
+	
+	for area in overlap:
+		if area.name != area_name:
+			continue
+		return area
+	return null
+
+func check_hit():
+	var area = check_overlap(HITBOX, "Damage")
+	if not area: return
 	if knockbacked_timer > 0: return
 	
 	var enemy = area.get_parent()
@@ -177,5 +190,11 @@ func _on_hitbox_area_entered(area):
 	knockbacked = true
 	knockbacked_timer = KNOCKBACK_COOLDOWN
 	
+	# Cancel the attack
+	if attack:
+		attack = false
+		ANIMATOR.stop()
+		stop_attack()
+	
 	hit_animations()
-	await ANIMATOR.animation_finished
+	animate()
