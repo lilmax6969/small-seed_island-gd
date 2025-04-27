@@ -95,6 +95,7 @@ radius = 4.0
 
 [node name="Enemy" instance=ExtResource("1_qbqvi")]
 script = ExtResource("1_bmng2")
+attack_knockback = 150
 
 [node name="Animator" type="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -5)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=4 uid="uid://cg5anokhl3o3s"]
+[gd_scene load_steps=10 format=4 uid="uid://cg5anokhl3o3s"]
 
-[ext_resource type="PackedScene" uid="uid://c1kiaciyi3cr3" path="res://scene/player.tscn" id="1_jojqj"]
+[ext_resource type="PackedScene" uid="uid://c1kiaciyi3cr3" path="res://scenes/player.tscn" id="1_jojqj"]
+[ext_resource type="PackedScene" uid="uid://jb1nfihb1p8" path="res://scenes/phantom.tscn" id="3_k7ws1"]
 [ext_resource type="Texture2D" uid="uid://cmitseqs6t56k" path="res://assets/Overworld_Tileset.png" id="3_me2p4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4wr4p"]
@@ -142,10 +143,13 @@ tile_set = SubResource("TileSet_2y1m1")
 y_sort_enabled = true
 
 [node name="Mini Ben" parent="y-sorted_objects" instance=ExtResource("1_jojqj")]
-z_index = 1
 y_sort_enabled = true
 
 [node name="vegetations" type="TileMapLayer" parent="y-sorted_objects"]
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAADAAAAAAAEAAUAAAAEAAAAAAADAAUAAAAGAAAAAAAFAAkAAAACAAAAAAAFAAkAAAAIAP//AAAAAAkAAAALAP//AAAAAAsAAAAMAP7/AAACAAkAAAA=")
 tile_set = SubResource("TileSet_i8jjd")
+
+[node name="Enemy" parent="y-sorted_objects" instance=ExtResource("3_k7ws1")]
+y_sort_enabled = true
+position = Vector2(58, -23)
