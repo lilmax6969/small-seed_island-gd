@@ -13,8 +13,8 @@ extends CharacterBody2D
 
 var attack: bool = false
 var knockbacked: bool = false
-var knockbacked_timer: float = KNOCKBACK_COOLDOWN
-var attack_timer: float = 0
+var knockbacked_timer := Global.timer.new(0.0, KNOCKBACK_COOLDOWN)
+var attack_timer := Global.timer.new(0.0, ATTACK_COOLDOWN)
 
 var input_direction: Vector2 = Vector2.ZERO
 var anim_direction: Vector2 = Vector2.DOWN
@@ -29,8 +29,8 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	# Update timer
-	knockbacked_timer = update_timer(knockbacked_timer, delta)
-	attack_timer = update_timer(attack_timer, delta)
+	knockbacked_timer.update_timer(delta)
+	attack_timer.update_timer(delta)
 	
 	# Direction
 	input()
@@ -50,11 +50,11 @@ func input():
 	input_direction = Input.get_vector("left", "right", "up", "down").normalized()
 	if (
 		Input.is_action_just_pressed("attack") and 
-		not attack and attack_timer <= 0 and
+		not attack and attack_timer.time <= 0 and
 		not knockbacked
 	): 
 		attack = true
-		attack_timer = ATTACK_COOLDOWN
+		attack_timer.reset()
 		attack_animations()
 
 func update_velocity(delta: float) -> void:
@@ -168,19 +168,10 @@ func hit_animations() -> void:
 	ANIMATOR.speed_scale = 1
 
 # ALERT: Ultra DANGER zone (knockback)
-func check_overlap(AREA: Area2D, area_name: String) -> Area2D:
-	var overlap = AREA.get_overlapping_areas()
-	
-	for area in overlap:
-		if area.name != area_name:
-			continue
-		return area
-	return null
-
 func check_hit():
-	var area = check_overlap(HITBOX, "Damage")
+	var area = Global.check_overlap(HITBOX, "Damage")
 	if not area: return
-	if knockbacked_timer > 0: return
+	if knockbacked_timer.time > 0: return
 	
 	var enemy = area.get_parent()
 	var att_direction: Vector2 = (global_position - enemy.global_position).normalized()
@@ -188,7 +179,7 @@ func check_hit():
 	velocity = att_direction * enemy.attack_knockback
 	
 	knockbacked = true
-	knockbacked_timer = KNOCKBACK_COOLDOWN
+	knockbacked_timer.reset()
 	
 	# Cancel the attack
 	if attack:

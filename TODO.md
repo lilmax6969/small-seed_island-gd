@@ -15,10 +15,13 @@
  - [X] Enemy class
  - [X] Remove repetetive code 
  - [X] Y sorting (map)
- - [ ] Enemy A.I.
- - [ ] Enemy animation
- - [ ] Make a global file for a timer class and overlapping area
+ - [X] Enemy A.I.
+ - [X] Enemy animation
+ - [X] Make a global file for a timer class and overlapping area
+ - [ ] Slime animation
+ - [ ] Slime AI
  - [ ] Visual clue for invisibility
+ - [ ] Player knockback when he attacks a wall
  - [ ] Player ladder
 
 ## Maxime
