@@ -4,6 +4,9 @@ extends CharacterBody2D
 @onready var SWORD = $Sword
 @onready var HITBOX = $Hitbox
 @onready var COLLISION = $Collision
+@onready var CAM = $Camera2D
+
+@export var GROUND: TileMapLayer
 
 @export var ACCELERATION: float = 750.0
 @export var DECELERATION: float = 1000.0

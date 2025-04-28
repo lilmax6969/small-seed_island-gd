@@ -18,11 +18,12 @@
  - [X] Enemy A.I.
  - [X] Enemy animation
  - [X] Make a global file for a timer class and overlapping area
- - [ ] Slime animation
- - [ ] Slime AI
+ - [X] Slime animation
+ - [X] Slime AI
+ - [X] Enemies death animation
+ - [ ] Camera border
  - [ ] Visual clue for invisibility
  - [ ] Player knockback when he attacks a wall
- - [ ] Player ladder
 
 ## Maxime
  - [X] Test map (pour tester les fonctionalitées)

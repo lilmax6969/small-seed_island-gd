@@ -6,7 +6,7 @@ extends CharacterBody2D
 @export var DECELERATION: float = 500.0
 @export var ACCELERATION: float = 500.0
 @export var MAX_SPEED: float = 30.0
-@export var MAX_DIST: float = 140.0
+@export var MAX_DIST: float = 95.0
 
 @export var life: int = 5
 @export var knockback_force: float = 150.0
@@ -27,22 +27,22 @@ func update_velocity(delta):
 	var decDelta = DECELERATION * delta
 	var direction = to_local(PATH.get_next_path_position()).normalized() 
 	
-	print(path_timer.time)
 	if knockback_timer.time <= 0 and path_timer.time <= path_cooldown:
 		velocity += accDelta * direction
 		if velocity.length() >= MAX_SPEED:
 			velocity = MAX_SPEED * velocity.normalized() 
 	else: velocity = velocity.move_toward(Vector2.ZERO, decDelta)
 
-func apply_knockback(PLAYER: CharacterBody2D):
+func apply_knockback(PLAYER: CharacterBody2D) -> bool:
 	var look_vector: Vector2 = PLAYER.anim_direction
 	var knockback_dir: Vector2 = (global_position - PLAYER.global_position).normalized()
 	
 	if look_vector.dot(knockback_dir) < 0: 
-		return
+		return false
 	
 	velocity = knockback_dir * knockback_force
 	knockback_timer.reset()
+	return true
 
 func check_hit(HITBOX: Area2D) -> bool:
 	var overlap_area = Global.check_overlap(HITBOX, "Sword")
@@ -53,8 +53,9 @@ func check_hit(HITBOX: Area2D) -> bool:
 	if not player.attack or knockback_timer.time > 0:
 		return false
 	
-	apply_knockback(PLAYER)
-	return true
+	var hit = apply_knockback(PLAYER)
+	life -= 1 if hit else 0
+	return hit
 
 func update_timer(timer: float, delta: float) -> float:
 	return timer - delta if timer - delta > 0 else 0.0
