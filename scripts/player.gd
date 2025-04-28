@@ -29,6 +29,12 @@ var default_sword_pos: Vector2
 
 func _ready():
 	default_sword_pos = SWORD.position
+	
+	var tile_rect = GROUND.get_used_rect()
+	CAM.limit_left = tile_rect.position.x * 16
+	CAM.limit_top = tile_rect.position.y * 16 - 16
+	CAM.limit_right = tile_rect.end.x * 16 + 16
+	CAM.limit_bottom = tile_rect.end.y * 16
 
 func _physics_process(delta: float) -> void:
 	# Update timer
