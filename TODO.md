@@ -15,11 +15,17 @@
  - [X] Enemy class
  - [X] Remove repetetive code 
  - [X] Y sorting (map)
- - [ ] Enemy A.I.
- - [ ] Enemy animation
- - [ ] Make a global file for a timer class and overlapping area
+ - [X] Enemy A.I.
+ - [X] Enemy animation
+ - [X] Make a global file for a timer class and overlapping area
+ - [X] Slime animation
+ - [X] Slime AI
+ - [X] Enemies death animation
+ - [X] Camera border
+ - [X] Better enemy ai
+ - [ ] Outer bound target bug
  - [ ] Visual clue for invisibility
- - [ ] Player ladder
+ - [ ] Player knockback when he attacks a wall
 
 ## Maxime
  - [X] Test map (pour tester les fonctionalitées)
