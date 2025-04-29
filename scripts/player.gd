@@ -10,7 +10,7 @@ extends CharacterBody2D
 
 @export var ACCELERATION: float = 750.0
 @export var DECELERATION: float = 1000.0
-@export var MAX_SPEED: float = 75.0
+@export var MAX_SPEED: float = 45.0
 @export var KNOCKBACK_COOLDOWN: float = 0.75
 @export var ATTACK_COOLDOWN: float = 0.5
 
