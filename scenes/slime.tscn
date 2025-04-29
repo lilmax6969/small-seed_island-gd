@@ -190,7 +190,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_x1hmo")
 }],
-"loop": true,
+"loop": false,
 "name": &"walk",
 "speed": 9.0
 }]
@@ -203,16 +203,15 @@ radius = 4.0
 
 [node name="Enemy" instance=ExtResource("1_qbqvi")]
 script = ExtResource("1_bmng2")
-idle_cooldown = 2.7
+idle_cooldown = 0.75
+wandering_cooldown = 2.3
 attack_knockback = 150
 
 [node name="Animator" type="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_0g654")
-animation = &"death"
+animation = &"walk"
 autoplay = "idle"
-frame = 7
-frame_progress = 1.0
 
 [node name="Damage" type="Area2D" parent="." index="1"]
 

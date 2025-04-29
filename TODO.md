@@ -21,7 +21,9 @@
  - [X] Slime animation
  - [X] Slime AI
  - [X] Enemies death animation
- - [ ] Camera border
+ - [X] Camera border
+ - [X] Better enemy ai
+ - [ ] Outer bound target bug
  - [ ] Visual clue for invisibility
  - [ ] Player knockback when he attacks a wall
 

@@ -1,5 +1,7 @@
 extends Node
 
+const impossible_target: Vector2 = Vector2(100*100, 100*100)
+
 class timer:
 	var time: float
 	var cooldown: float

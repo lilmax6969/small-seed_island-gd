@@ -286,6 +286,7 @@ y_sort_enabled = true
 
 [node name="Mini Ben" parent="y-sorted_objects" node_paths=PackedStringArray("GROUND") instance=ExtResource("1_jojqj")]
 y_sort_enabled = true
+position = Vector2(-1, 0)
 GROUND = NodePath("../../tilemap/ground")
 
 [node name="vegetations" type="TileMapLayer" parent="y-sorted_objects"]
@@ -298,6 +299,7 @@ y_sort_enabled = true
 position = Vector2(58, -23)
 motion_mode = 0
 wall_min_slide_angle = 0.261799
+wandering_cooldown = 2
 PLAYER = NodePath("../Mini Ben")
 life = 7
 

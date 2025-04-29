@@ -25,9 +25,15 @@ func make_path(pos: Vector2, cooldown = null):
 func update_velocity(delta):
 	var accDelta = ACCELERATION * delta
 	var decDelta = DECELERATION * delta
-	var direction = to_local(PATH.get_next_path_position()).normalized() 
 	
-	if knockback_timer.time <= 0 and path_timer.time <= path_cooldown:
+	var next_pos = PATH.get_next_path_position()
+	var direction = (next_pos - global_position)
+	if direction.length() > 1:
+		direction = direction.normalized()
+	else:
+		direction = Vector2.ZERO
+	
+	if knockback_timer.time <= 0:
 		velocity += accDelta * direction
 		if velocity.length() >= MAX_SPEED:
 			velocity = MAX_SPEED * velocity.normalized() 
@@ -55,6 +61,10 @@ func check_hit(HITBOX: Area2D) -> bool:
 	
 	var hit = apply_knockback(PLAYER)
 	life -= 1 if hit else 0
+	
+	if life <= 0:
+		return false
+	
 	return hit
 
 func update_timer(timer: float, delta: float) -> float:
