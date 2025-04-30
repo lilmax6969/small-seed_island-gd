@@ -1,8 +1,40 @@
-[gd_scene load_steps=15 format=3 uid="uid://jb1nfihb1p8"]
+[gd_scene load_steps=29 format=3 uid="uid://jb1nfihb1p8"]
 
 [ext_resource type="PackedScene" uid="uid://blnqtguvrxpm7" path="res://scenes/enemy.tscn" id="1_gvb4h"]
 [ext_resource type="Script" path="res://scripts/phantom.gd" id="2_s4adx"]
 [ext_resource type="Texture2D" uid="uid://380oo21y0ygh" path="res://assets/Enemies_Sprites/Phantom_Sprites/phantom_spritesheet.png" id="2_s6vxh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ms4b6"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(112, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pnuo"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(128, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b20ks"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(144, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_438ef"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(160, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tp23n"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(176, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgql1"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(192, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ldj0"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(208, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2rru"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(224, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xtpuv"]
 atlas = ExtResource("2_s6vxh")
@@ -36,8 +68,61 @@ region = Rect2(32, 64, 16, 16)
 atlas = ExtResource("2_s6vxh")
 region = Rect2(48, 64, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_anfe4"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23epb"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ku48"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kujqq"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjxpt"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jgb81"]
+atlas = ExtResource("2_s6vxh")
+region = Rect2(80, 16, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_h2eka"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ms4b6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pnuo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b20ks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_438ef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tp23n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgql1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ldj0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2rru")
+}],
+"loop": false,
+"name": &"death",
+"speed": 13.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xtpuv")
@@ -71,6 +156,29 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_anfe4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23epb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ku48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kujqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjxpt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jgb81")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aq01p"]
@@ -80,14 +188,17 @@ radius = 4.0
 radius = 3.0
 
 [node name="Enemy" instance=ExtResource("1_gvb4h")]
+collision_layer = 2
 script = ExtResource("2_s4adx")
+idle_cooldown = 2.0
 attack_knockback = 150
 
 [node name="Animator" type="AnimatedSprite2D" parent="." index="0"]
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_h2eka")
-animation = &"idle"
+animation = &"death"
 autoplay = "idle"
+frame_progress = 0.714257
 
 [node name="Damage" type="Area2D" parent="." index="1"]
 
