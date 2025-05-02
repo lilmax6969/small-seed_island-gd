@@ -528,10 +528,10 @@ script = ExtResource("1_3lobu")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(7, 7)
-limit_left = -16
-limit_top = -10
-limit_right = 32
-limit_bottom = 42
+limit_left = -10000
+limit_top = -10000
+limit_right = 100000
+limit_bottom = -10000
 script = SubResource("GDScript_2ig03")
 
 [node name="Animator" type="AnimatedSprite2D" parent="."]
@@ -543,7 +543,7 @@ autoplay = "idle_down"
 [node name="Hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(-0.164391, -3.30424)
+position = Vector2(0, -3)
 shape = SubResource("CircleShape2D_iiklf")
 debug_color = Color(0, 0.650306, 0.100696, 0.42)
 
@@ -555,6 +555,11 @@ shape = SubResource("RectangleShape2D_d3qg4")
 debug_color = Color(0.964174, 0.229244, 0.200238, 0.42)
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2.74737)
+position = Vector2(0, -3)
 scale = Vector2(0.75, 0.75)
 shape = SubResource("CircleShape2D_31x2y")
+
+[node name="Attack-collision" type="RayCast2D" parent="."]
+position = Vector2(0, -11)
+scale = Vector2(5.36, 1)
+target_position = Vector2(0, 11)

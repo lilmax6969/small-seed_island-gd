@@ -10,4 +10,3 @@ script = ExtResource("1_bmng2")
 [node name="Pathfinding" type="NavigationAgent2D" parent="."]
 target_desired_distance = 313.0
 path_postprocessing = 1
-debug_enabled = true

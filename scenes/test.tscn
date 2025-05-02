@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://cg5anokhl3o3s"]
+[gd_scene load_steps=40 format=4 uid="uid://cg5anokhl3o3s"]
 
 [ext_resource type="PackedScene" uid="uid://c1kiaciyi3cr3" path="res://scenes/player.tscn" id="1_jojqj"]
 [ext_resource type="PackedScene" uid="uid://jb1nfihb1p8" path="res://scenes/phantom.tscn" id="3_k7ws1"]
@@ -190,6 +190,12 @@ texture = ExtResource("3_me2p4")
 navigation_layer_0/layers = 1
 sources/0 = SubResource("TileSetAtlasSource_4wr4p")
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_8sk1w"]
+vertices = PackedVector2Array(-4, 8, -8, 8, -8, -8, -4, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-8, -8, -4, -8, -4, 8, -8, 8)])
+agent_radius = 0.0
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_sxum2"]
 vertices = PackedVector2Array(8, 8, -8, 8, -8, -8, 8, -8)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
@@ -337,6 +343,7 @@ texture = ExtResource("3_me2p4")
 11:3/0/terrains_peering_bit/top_left_corner = 0
 11:3/0/terrains_peering_bit/top_side = 0
 11:3/0/terrains_peering_bit/top_right_corner = 0
+11:3/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_8sk1w")
 11:4/0 = 0
 11:4/0/terrain_set = 0
 11:4/0/terrain = 0
@@ -520,12 +527,12 @@ position = Vector2(58, -23)
 motion_mode = 0
 wall_min_slide_angle = 0.261799
 wandering_cooldown = 2
-life = 7
 PLAYER = NodePath("../Mini Ben")
+life = 7
 
 [node name="Slimes" parent="y-sorted_objects" node_paths=PackedStringArray("PLAYER") instance=ExtResource("4_3fpwq")]
 y_sort_enabled = true
 position = Vector2(-16, -54)
+PLAYER = NodePath("../Mini Ben")
 MAX_SPEED = 17.0
 path_cooldown = 1.0
-PLAYER = NodePath("../Mini Ben")

@@ -223,3 +223,6 @@ debug_color = Color(0.986043, 0, 0.327662, 0.42)
 [node name="Collision" type="CollisionShape2D" parent="." index="2"]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_80crh")
+
+[node name="Pathfinding" parent="." index="3"]
+debug_enabled = false

@@ -10,6 +10,7 @@ config_version=5
 
 [application]
 
+config/name="small-seed_island-gd"
 config/features=PackedStringArray("4.3")
 
 [autoload]
