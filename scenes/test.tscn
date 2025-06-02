@@ -520,12 +520,12 @@ position = Vector2(58, -23)
 motion_mode = 0
 wall_min_slide_angle = 0.261799
 wandering_cooldown = 2
-life = 7
 PLAYER = NodePath("../Mini Ben")
+life = 7
 
 [node name="Slimes" parent="y-sorted_objects" node_paths=PackedStringArray("PLAYER") instance=ExtResource("4_3fpwq")]
 y_sort_enabled = true
 position = Vector2(-16, -54)
+PLAYER = NodePath("../Mini Ben")
 MAX_SPEED = 17.0
 path_cooldown = 1.0
-PLAYER = NodePath("../Mini Ben")
